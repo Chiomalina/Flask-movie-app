@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from  typing import List, Dict, Any
+from  typing import List, Dict, Any, Optional
 
 class DataManagerInterface(ABC):
 	"""Abstract interface for data management of users and their movies"""
@@ -11,7 +11,7 @@ class DataManagerInterface(ABC):
 		pass
 
 	@abstractmethod
-	def add_users(self, name: str) -> Any:
+	def add_user(self, name: str) -> Any:
 		"""Return a list of all users."""
 		pass
 

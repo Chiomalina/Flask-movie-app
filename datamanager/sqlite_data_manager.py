@@ -1,6 +1,6 @@
 from typing import List, Optional, Any
 
-from data_manager_interface import DataManagerInterface
+from datamanager.data_manager_interface import DataManagerInterface
 from models import db, User, Movie
 
 class SQLiteDataManager(DataManagerInterface):
@@ -9,9 +9,10 @@ class SQLiteDataManager(DataManagerInterface):
 	Assumes 'db' has already been initialized with a Flask app.
 	"""
 
-	def __init__(self) -> None:
+	def __init__(self, db_file_name: str) -> None:
 		# Here we use db.session directly; no need to pass db_file_name here,
 		# because the Flask app config already knows the DB URI.
+		self.db_file_name = db_file_name
 		self.session = db.session
 
 	# ---------- User methods ----------
