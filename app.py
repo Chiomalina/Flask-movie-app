@@ -34,5 +34,11 @@ def create_user():
 	return redirect(url_for("list_users"))
 
 
+@app.route("/users/<int:user_id>")
+def user_movies(user_id):
+	# TODO: implement later
+	return f"Movies for user {user_id}"
+
+
 if __name__ == "__main__":
 	app.run(debug=True)
