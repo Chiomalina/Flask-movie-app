@@ -36,7 +36,13 @@ def create_user():
 
 @app.route("/users/<int:user_id>")
 def user_movies(user_id):
-	# TODO: implement later
+	# Get the user (dict or model)
+	user = data_manager.get_user(user_id)
+
+	# Get all movies from that user
+	movies = data_manager.get_user_movies(user_id)
+
+	# TODO: Add/Edit/Delete link here
 	return f"Movies for user {user_id}"
 
 
