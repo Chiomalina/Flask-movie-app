@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Edit Movie - Flask_Movie_App</title>
+</head>
+<body>
+  <h1>Edit Movie</h1>
+
+  <from action="{{ url_for('update_movie', user_id=user_id, movie_id=movie['id']) }}" method="post">
+    <label for="name">Title:</label>
+    <input type="text" id="name" name="name" value="{{ movie['name'] }}" required>
+
+    <label for="director">Director:</label>
+    <input type="text" id="director" name="director" value="{{movie['director']}}" required>
+
+    <label for="year">Year:</label>
+    <input type="number" id="year" name="year" value="{{movie['year']}}" required>
+
+    <label for="rating">Rating:</label>
+    <input type="number" step="0.1" id="rating" name="rating" value="{{movie['rating']}}">
+
+    <button type="submit">Save changes</button>
+
+    <p><a href="{{ url_for('user_movies', user_id) }}">← Back to user movies</a></p>
+
+  </from>
+</body>
+</html>
