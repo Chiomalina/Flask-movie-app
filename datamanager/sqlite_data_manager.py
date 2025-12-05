@@ -20,6 +20,10 @@ class SQLiteDataManager(DataManagerInterface):
 		"""Return all users stored in the database."""
 		return self.session.query(User).all()
 
+	def get_user(self, user_id: int) -> Optional[User]:
+		"""Return a single user by ID, or None if not found."""
+		return self.session.get(User, user_id)
+
 	def add_user(self, name: str) -> User:
 		"""Create and persist a new user."""
 		user = User(name=name)

@@ -11,6 +11,11 @@ class DataManagerInterface(ABC):
 		pass
 
 	@abstractmethod
+	def get_user(self, user_id: int) -> Optional[Any]:
+		"""Return a single user by ID."""
+		pass
+
+	@abstractmethod
 	def add_user(self, name: str) -> Any:
 		"""Return a list of all users."""
 		pass

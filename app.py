@@ -96,19 +96,18 @@ def add_movie(user_id):
 		director = data.get("Director", "Unknown")
 
 		#3. Save via DataManager
-		data_manager.add_movie_for_user(
+		data_manager.add_movie(
 			user_id=user_id,
 			name=movie_name,
 			director=director,
 			year=movie_year,
-			rating=movie_rating
+			rating=movie_rating,
 		)
 
+		return redirect(url_for("user_movies", user_id=user_id))
 
-
-
-
-	return f"Add movie page for user {user_id} (to be implemented)"
+	# GET -> show empty form
+	return render_template("add_movie.html", user_id=user_id)
 
 
 @app.route("/users/<int:user_id>/update_movie/<int:movie_id>", methods=["GET", "POST"])
