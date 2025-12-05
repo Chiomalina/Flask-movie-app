@@ -43,7 +43,7 @@ def user_movies(user_id):
 	movies = data_manager.get_user_movies(user_id)
 
 	# TODO: Add/Edit/Delete link here
-	return f"Movies for user {user_id}"
+	return render_template("user_movies.html", user=user, movie=movies)
 
 
 @app.route("/add_user", methods=["GET", "POST"])
@@ -54,7 +54,7 @@ def add_user():
 		data_manager.add_user(name=name)
 		return redirect(url_for("list_users"))
 
-	# GET request -- just show the for
+	# GET request -- just show the form
 	return render_template("add_user.html")
 
 
