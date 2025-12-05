@@ -46,6 +46,18 @@ def user_movies(user_id):
 	return f"Movies for user {user_id}"
 
 
+@app.route("/add_user", methods=["GET", "POST"])
+def add_user():
+	if request.method == "POST":
+		name = request.form["name"]
+		# Use DataManager to create user
+		data_manager.add_user(name=name)
+		return redirect(url_for("list_users"))
+
+	# GET request -- just show the for
+	return render_template("add_user.html")
+
+
 @app.route("/users/<int:user_id>/add_movie", methods=["GET", "POST"])
 def add_movie(user_id):
 	return f"Add movie page for user {user_id} (to be implemented)"
