@@ -112,7 +112,24 @@ def add_movie(user_id):
 
 @app.route("/users/<int:user_id>/update_movie/<int:movie_id>", methods=["GET", "POST"])
 def update_movie(user_id, movie_id):
-	return f"Update movie {movie_id} for user {user_id} (to be implemented)"
+	if request.method == "POST":
+		name = request.form["name"]
+		director = request.form["director"]
+		year = int(request.form["year"])
+		rating = float(request.form["rating"])
+
+		data_manager.update_movie(
+			movie_id=movie_id,
+			name=name,
+			director=director,
+			year=year,
+			rating=rating,
+		)
+		return redirect(url_for("user_movies", user_id=user_id))
+
+	# GET - fetch movie and render the form with current values
+	movie = data_manager.get_user_movies(movie_id)
+	return render_template("update_movie.html", user_id=user_id, movie=movie)
 
 
 @app.route("/users/<int:user_id>/delete_movie/<int:movie_id>", methods=["GET", "POST"])
