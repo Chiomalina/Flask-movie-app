@@ -60,6 +60,18 @@ def add_user():
 
 @app.route("/users/<int:user_id>/add_movie", methods=["GET", "POST"])
 def add_movie(user_id):
+	if request.method == "POST":
+		title = request.form["title"]
+
+		#1. CAll OMDb API
+		parama = {
+			"t": title,
+			"apikey": OMDB_API_KEY,
+		}
+		response = requests.get("http://www.omdbapi.com/", params=params)
+		data = response.json()
+
+
 	return f"Add movie page for user {user_id} (to be implemented)"
 
 
