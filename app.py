@@ -46,5 +46,20 @@ def user_movies(user_id):
 	return f"Movies for user {user_id}"
 
 
+@app.route("/users/<int:user_id>/add_movie", methods=["GET", "POST"])
+def add_movie(user_id):
+	return f"Add movie page for user {user_id} (to be implemented)"
+
+
+@app.route("/users/<int:user_id>/update_movie/<int:movie_id>", methods=["GET", "POST"])
+def update_movie(user_id, movie_id):
+	return f"Update movie {movie_id} for user {user_id} (to be implemented)"
+
+
+@app.route("/users/<int:user_id>/delete_movie/<int:movie_id>", methods=["GET", "POST"])
+def delete_movie(user_id, movie_id):
+	return f"Update movie {movie_id} for user {user_id} (to be implemented)"
+
+
 if __name__ == "__main__":
 	app.run(debug=True)
