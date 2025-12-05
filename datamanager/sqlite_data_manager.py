@@ -42,6 +42,14 @@ class SQLiteDataManager(DataManagerInterface):
 			.all()
 		)
 
+	def get_movie(self, user_id: int) -> List[Movie]:
+		""" Return all movies that belong to the given user."""
+		return (
+			self.session.query(Movie)
+			.filter(Movie.user_id == user_id)
+			.all()
+		)
+
 	def add_movie(
 			self,
 			user_id: int,

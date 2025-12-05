@@ -49,7 +49,7 @@ def user_movies(user_id):
 	movies = data_manager.get_user_movies(user_id)
 
 	# TODO: Add/Edit/Delete link here
-	return render_template("user_movies.html", user=user, movie=movies)
+	return render_template("user_movies.html", user=user, movies=movies)
 
 
 @app.route("/add_user", methods=["GET", "POST"])
@@ -128,13 +128,14 @@ def update_movie(user_id, movie_id):
 		return redirect(url_for("user_movies", user_id=user_id))
 
 	# GET - fetch movie and render the form with current values
-	movie = data_manager.get_user_movies(movie_id)
+	movie = data_manager.get_movie(movie_id)
 	return render_template("update_movie.html", user_id=user_id, movie=movie)
 
 
 @app.route("/users/<int:user_id>/delete_movie/<int:movie_id>", methods=["GET", "POST"])
 def delete_movie(user_id, movie_id):
-	return f"Update movie {movie_id} for user {user_id} (to be implemented)"
+	data_manager.delete_movie(movie_id)
+	return redirect(url_for("user_movies", user_id=user_id))
 
 
 if __name__ == "__main__":
