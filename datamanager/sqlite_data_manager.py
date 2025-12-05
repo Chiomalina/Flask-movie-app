@@ -42,13 +42,29 @@ class SQLiteDataManager(DataManagerInterface):
 			.all()
 		)
 
-	def get_movie(self, user_id: int) -> List[Movie]:
-		""" Return all movies that belong to the given user."""
-		return (
-			self.session.query(Movie)
-			.filter(Movie.user_id == user_id)
-			.all()
-		)
+	def get_movie(self, movie_id: int) -> dict | None:
+		"""
+		Fetch a single movie by its ID and return it as a dictionary.
+		:param movie_id: ID of the movie to retrieve
+		:return: dict with movie data or None if not found
+		"""
+
+		movie = Movie.query.get(movie_id)
+
+		if movie is None:
+			return None
+
+		#   Convert SQLAlchemy model to dictionary
+		return {
+			"id": movie.id,
+			"name": movie.name,
+			"director": movie.director,
+			"year": movie.year,
+			"rating": movie.rating,
+			"user_id": movie.user_id,
+		}
+
+
 
 	def add_movie(
 			self,
