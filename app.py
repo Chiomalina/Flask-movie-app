@@ -77,6 +77,36 @@ def add_movie(user_id):
 		response = requests.get("http://www.omdbapi.com/", params=params)
 		data = response.json()
 
+		#2. Extract fields (handle not found case)
+		if data.get("Response") == "False":
+			error = data.get("Error", "Movie not found")
+			# re-render template with error message
+			return render_template(
+				"add_movie.html",
+				user_id=user_id,
+				error=error,
+			)
+
+		# Mapping
+		movie_name = data.get("Title", title)
+		movie_year = int(data.get("Year", 0)) if data.get("Year") else 0
+		# OMDb uses "imdbRating"
+		imdb_rating_str = data.get("imdbRating")
+		movie_rating = float(imdb_rating_str) if imdb_rating_str and imdb_rating_str != "N/A" else 0.0
+		director = data.get("Director", "Unknown")
+
+		#3. Save via DataManager
+		data_manager.add_movie_for_user(
+			user_id=user_id,
+			name=movie_name,
+			director=director,
+			year=movie_year,
+			rating=movie_rating
+		)
+
+
+
+
 
 	return f"Add movie page for user {user_id} (to be implemented)"
 
