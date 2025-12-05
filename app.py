@@ -1,7 +1,13 @@
+import requests
 from flask import Flask, render_template, request, redirect, url_for
 from models import db
 from datamanager.sqlite_data_manager import SQLiteDataManager
+from dotenv import load_dotenv
+import os
 
+load_dotenv()
+
+OMDB_API_KEY = os.getenv("OMDb_API_KEY")
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///moviweb.db"
@@ -64,7 +70,7 @@ def add_movie(user_id):
 		title = request.form["title"]
 
 		#1. CAll OMDb API
-		parama = {
+		params = {
 			"t": title,
 			"apikey": OMDB_API_KEY,
 		}
