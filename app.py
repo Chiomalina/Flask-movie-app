@@ -49,7 +49,11 @@ def index():
 
 @app.route("/users")
 def list_users():
-	users = data_manager.get_all_users()
+	try:
+		users = data_manager.get_all_users()
+	except SQLAlchemyError as e:
+		app.logger.error(f"DB error while listing users: {e}")
+		abort(500)
 	return render_template("users.html", users=users)
 
 
@@ -67,9 +71,19 @@ def user_movies(user_id):
 @app.route("/add_user", methods=["GET", "POST"])
 def add_user():
 	if request.method == "POST":
-		name = request.form["name"]
-		# Use DataManager to create user
-		data_manager.add_user(name=name)
+		name = request.form.get("name", "").strip()
+
+		if not name:
+			error = "Name is required."
+			return render_template("add_user.html", error=error)
+
+		try:
+			# Use DataManager to create user
+			data_manager.add_user(name=name)
+		except SQLAlchemyError as e:
+			app.logger.error(f"DB error while adding user '{name}': {e}")
+			abort(500)
+
 		return redirect(url_for("list_users"))
 
 	# GET request -- just show the form
