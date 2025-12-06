@@ -4,6 +4,17 @@ from  typing import List, Dict, Any, Optional
 class DataManagerInterface(ABC):
 	"""Abstract interface for data management of users and their movies"""
 
+	# ----- Helper conversion operations -----
+	@abstractmethod
+	def parse_year(self, raw_year: str) -> int:
+		"""
+		Extracts the first 4-digit year from a string like '2013–2015' or '2013– '.
+		Returns 0 if no valid year is found.
+		:param raw_year:
+		:return: int
+		"""
+		pass
+
 	# ----- User operations -----
 	@abstractmethod
 	def get_all_users(self) -> List[Any]:

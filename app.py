@@ -33,13 +33,6 @@ def list_users():
 	return render_template("users.html", users=users)
 
 
-@app.route("/users/create", methods=["POST"])
-def create_user():
-	name = request.form["name"]
-	data_manager.add_user(name=name)
-	return redirect(url_for("list_users"))
-
-
 @app.route("/users/<int:user_id>")
 def user_movies(user_id):
 	# Get the user (dict or model)
@@ -89,7 +82,9 @@ def add_movie(user_id):
 
 		# Mapping
 		movie_name = data.get("Title", title)
-		movie_year = int(data.get("Year", 0)) if data.get("Year") else 0
+		# parse_year helper function created to avoid valueError
+		raw_year = data.get("Year", "")
+		movie_year = data_manager.parse_year(raw_year)
 		# OMDb uses "imdbRating"
 		imdb_rating_str = data.get("imdbRating")
 		movie_rating = float(imdb_rating_str) if imdb_rating_str and imdb_rating_str != "N/A" else 0.0

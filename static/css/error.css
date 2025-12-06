@@ -1,0 +1,75 @@
+/* General page layout */
+body {
+    font-family: Arial, sans-serif;
+    background: #f7f7f7;
+    text-align: center;
+    padding: 50px;
+    margin: 0;
+}
+
+/* Container for the error content */
+.error-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Big error code number */
+.error-code {
+    font-size: 4rem;
+    margin-bottom: 10px;
+}
+
+/* Message text */
+.error-message {
+    color: #555;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+/* Small secondary text */
+.error-hint {
+    color: #777;
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
+
+/* Button-like link */
+.error-link {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 25px;
+    text-decoration: none;
+    border-radius: 6px;
+}
+
+/* Specific colors for 404 page */
+.error-404 .error-code {
+    color: #333;
+}
+
+.error-404 .error-link {
+    background: #4a90e2;
+    color: #ffffff;
+}
+
+.error-404 .error-link:hover {
+    background: #357abd;
+}
+
+/* Specific colors for 500 page */
+.error-500 {
+    background: #fff3f3;
+}
+
+.error-500 .error-code {
+    color: #c0392b;
+}
+
+.error-500 .error-link {
+    background: #c0392b;
+    color: #ffffff;
+}
+
+.error-500 .error-link:hover {
+    background: #922b21;
+}

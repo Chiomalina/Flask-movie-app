@@ -1,4 +1,5 @@
 from typing import List, Optional, Any
+import re
 
 from datamanager.data_manager_interface import DataManagerInterface
 from models import db, User, Movie
@@ -14,6 +15,22 @@ class SQLiteDataManager(DataManagerInterface):
 		# because the Flask app config already knows the DB URI.
 		self.db_file_name = db_file_name
 		self.session = db.session
+
+	def parse_year(self, raw_year: str) -> int:
+		"""
+		Extracts the first 4-digit year from a string like '2013–2015' or '2013– '.
+        Returns 0 if no valid year is found.
+		:param raw_year:
+		:return: int
+		"""
+		if not raw_year:
+			return 0
+
+		match = re.search(r"\d{4}", raw_year)
+		if not match:
+			return 0
+
+		return int(match.group(0))
 
 	# ---------- User methods ----------
 	def get_all_users(self) -> List[User]:
