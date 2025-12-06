@@ -59,27 +59,14 @@ class SQLiteDataManager(DataManagerInterface):
 			.all()
 		)
 
-	def get_movie(self, movie_id: int) -> dict | None:
+	def get_movie(self, movie_id: int) -> Optional[Movie]:
 		"""
 		Fetch a single movie by its ID and return it as a dictionary.
 		:param movie_id: ID of the movie to retrieve
 		:return: dict with movie data or None if not found
 		"""
-
-		movie = Movie.query.get(movie_id)
-
-		if movie is None:
-			return None
-
-		#   Convert SQLAlchemy model to dictionary
-		return {
-			"id": movie.id,
-			"name": movie.name,
-			"director": movie.director,
-			"year": movie.year,
-			"rating": movie.rating,
-			"user_id": movie.user_id,
-		}
+		"""Return a single movie by ID, or None if not found."""
+		return self.session.get(Movie, movie_id)
 
 
 

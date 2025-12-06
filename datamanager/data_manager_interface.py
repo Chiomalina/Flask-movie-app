@@ -38,6 +38,11 @@ class DataManagerInterface(ABC):
 		pass
 
 	@abstractmethod
+	def get_movie(self, movie_id: int) -> Optional[Any]:
+		"""Return a single movie by ID, or None if not found."""
+		pass
+
+	@abstractmethod
 	def add_movie(
 			self,
 			user_id: int,
