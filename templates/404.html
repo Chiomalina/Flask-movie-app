@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Page Not Found</title>
+  <link rel="stylesheet" href="{{ url_for('static' , filename='css/error.css')}}">
+</head>
+<body class="error-404">
+  <div class="error-container">
+      <h1 class="error-code">404</h1>
+      <p class="error-message">Oops! The page you're looking for doesn't exist.</p>
+      <p class="error-hint">It may have been moved, deleted, or you typed the URL incorrectly.</p>
+      <a class="error-link" href="{{ url_for('index') }}">🏠 Go Back Home</a>
+  </div>
+</body>
+</html>
