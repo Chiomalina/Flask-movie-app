@@ -41,11 +41,6 @@ def test_add_user_post_creates_user_and_redirects(client):
 	- redirect to the users list page
 	"""
 
-	with app.app_context():
-		# Clear users if you want a clean slate for the test
-		User.query.delete()
-		db.session.commit()
-
 	# Act: send POST data to the route
 	response = client.post(
 		"/add_user",
@@ -62,7 +57,7 @@ def test_add_user_post_creates_user_and_redirects(client):
 	assert location is not None
 	assert "users" in location
 
-	# Now, optionally, follow the redirect and check the user list page
+	# Follow the redirect and check the user list page
 	follow_response = client.get(location)
 
 	assert follow_response.status_code == 200
