@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block title %}MovieWeb – Your Movie Universe{% endblock %}
+
+{% block content %}
+
+  <!-- Hero section -->
+  <section class="hero">
+    <!-- Left: text -->
+    <div>
+      <div class="hero-badge mb-3">
+        <span>Flask_Movie_App</span>
+        <span class="text-primary">Beta</span>
+      </div>
+
+      <h1 class="hero-title mb-3">
+        Stream your movie collection<br>
+        like a pro.
+      </h1>
+
+      <p class="hero-subtitle mb-4">
+        Browse users, track their movies, and manage ratings in a sleek,
+        Disney+ inspired interface. Built with Flask, SQLAlchemy, and a lot of learning.
+      </p>
+
+      <div class="d-flex flex-wrap gap-2">
+        <a href="{{ url_for('list_users') }}" class="btn btn-primary">
+          View Users & Collections
+        </a>
+        <a href="{{ url_for('add_user') }}" class="btn btn-outline-light">
+          + Add New User
+        </a>
+      </div>
+    </div>
+
+    <!-- Right: fake “featured collection” card -->
+    <div class="hero-poster">
+      <div class="hero-poster-inner">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <span class="hero-poster-title">Featured Collection</span>
+          <span class="badge-rating">4.8 ★</span>
+        </div>
+        <p class="text-secondary mb-3">
+          “Masterschool Picks” – a curated list of your best movies.
+        </p>
+
+        <div class="d-flex flex-wrap gap-2 mb-3">
+          <span class="hero-poster-chip">
+            🎓 Learning
+          </span>
+          <span class="hero-poster-chip">
+            🍿 Classics
+          </span>
+          <span class="hero-poster-chip">
+            🧠 Thought-Provoking
+          </span>
+        </div>
+
+        <small class="text-secondary">
+          Hint: hook this up later to real data from your database.
+        </small>
+      </div>
+    </div>
+  </section>
+
+  <!-- Optional: section below hero -->
+  <section class="mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <div>
+        <h2 class="section-title">Get started</h2>
+        <p class="section-subtitle mb-0">
+          Create a user and start adding movies to their personal collection.
+        </p>
+      </div>
+    </div>
+
+    <div class="row g-3">
+      <div class="col-12 col-md-6">
+        <div class="card user-card h-100">
+          <div class="card-body">
+            <h3 class="h5">1. Add a user</h3>
+            <p class="text-secondary mb-3">
+              Create a new user that will own a movie collection.
+            </p>
+            <a href="{{ url_for('add_user') }}" class="btn btn-primary btn-sm">
+              Go to “Add User”
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6">
+        <div class="card user-card h-100">
+          <div class="card-body">
+            <h3 class="h5">2. View & manage collections</h3>
+            <p class="text-secondary mb-3">
+              Open the user list and explore their movies — add, update, and delete entries.
+            </p>
+            <a href="{{ url_for('list_users') }}" class="btn btn-outline-light btn-sm">
+              Go to “Users”
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock %}
