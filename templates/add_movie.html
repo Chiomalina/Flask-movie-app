@@ -1,25 +1,60 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Add Movie - Flask_Movie_App</title>
-</head>
-<body>
-  <h1>Add Movie for User {{ user_id }}</h1>
+{% extends "base.html" %}
 
-  {% if error %}
-    <p style="color: red;">{{ error }}</p>
-  {% endif %}
+{% block title %}Add Movie – User {{ user_id }}{% endblock %}
 
-  <form action="{{ url_for('add_movie', user_id=user_id) }}" method="post">
-    <label for="title">Movie title:</label>
-    <input type="text" id="title" name="title" required>
-    <button type="submit">Search & Save</button>
-  </form>
+{% block content %}
+  <!-- Back link -->
+  <div class="mb-3">
+    <a href="{{ url_for('user_movies', user_id=user_id) }}" class="text-decoration-none text-secondary">
+      ← Back to user’s movies
+    </a>
+  </div>
 
-  <p><a href="{{ url_for('user_movies', user_id=user_id) }}"></a></p>
-</body>
-</html>
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-10 col-lg-7">
+      <div class="card user-card">
+        <div class="card-body">
+          <h1 class="h4 fw-bold mb-1">Add movie by title</h1>
+          <p class="text-secondary mb-4">
+            Enter a movie title. The app will search OMDb and save it to this user’s collection if found.
+          </p>
+
+          <!-- Error message (from your route) -->
+          {% if error %}
+            <div class="alert alert-danger" role="alert">
+              {{ error }}
+            </div>
+          {% endif %}
+
+          <!-- Your original form, just styled -->
+          <form action="{{ url_for('add_movie', user_id=user_id) }}" method="post">
+            <div class="mb-3">
+              <label for="title" class="form-label">Movie title</label>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                class="form-control"
+                placeholder="e.g. The Lion King"
+                required
+              >
+              <div class="form-text">
+                We’ll search OMDb using this title.
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-end gap-2">
+              <a href="{{ url_for('user_movies', user_id=user_id) }}" class="btn btn-outline-light">
+                Cancel
+              </a>
+              <button type="submit" class="btn btn-primary">
+                Search &amp; Save
+              </button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

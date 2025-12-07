@@ -152,7 +152,7 @@ def add_movie(user_id):
 		return redirect(url_for("user_movies", user_id=user_id))
 
 	# GET -> show empty form
-	return render_template("add_movie.html", user_id=user_id)
+	return render_template("add_movie.html", user_id=user_id, user=user)
 
 
 @app.route("/users/<int:user_id>/update_movie/<int:movie_id>", methods=["GET", "POST"])
@@ -199,7 +199,7 @@ def update_movie(user_id, movie_id):
 		# Movie does not exist -> return 404 page
 		abort(404)
 
-	return render_template("update_movie.html", user_id=user_id, movie=movie)
+	return render_template("update_movie.html", user_id=user_id, user=user, movie=movie)
 
 
 @app.route("/users/<int:user_id>/delete_movie/<int:movie_id>", methods=["GET", "POST"])

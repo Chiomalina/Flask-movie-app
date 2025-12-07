@@ -23,6 +23,10 @@ body {
   color: #cbd5f5 !important; /* soft bluish grey */
 }
 
+h1 {
+    color: #fafafa !important;
+}
+
 
 /* Navbar */
 .navbar {
@@ -138,6 +142,29 @@ body {
   font-size: 0.85rem;
   color: #fafafa;
 }
+
+/* Form controls on dark background */
+.form-control, .form-select {
+  background: rgba(15, 23, 42, 0.95);
+  border-color: rgba(148, 163, 184, 0.7);
+  color: #fafafa;
+}
+
+.form-control::placeholder {
+  color: rgba(148, 163, 184, 0.8);
+}
+
+.form-control:focus, .form-select:focus {
+  background: rgba(15, 23, 42, 1);
+  border-color: #1d9bf0;
+  box-shadow: 0 0 0 0.2rem rgba(29, 155, 240, 0.25);
+}
+
+/* Helper text under inputs */
+.form-text {
+  color: #cbd5f5 !important;
+}
+
 
 /* Cards (users and movies) */
 .user-card,
