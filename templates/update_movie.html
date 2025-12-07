@@ -10,6 +10,10 @@
 <body>
   <h1>Edit Movie</h1>
 
+  {% if error %}
+    <p style="color: red;">{{ error }}</p>
+  {% endif %}
+
   <form action="{{ url_for('update_movie', user_id=user_id, movie_id=movie.id) }}" method="post">
     <label for="name">Title:</label>
     <input type="text" id="name" name="name" value="{{ movie['name'] }}" required>

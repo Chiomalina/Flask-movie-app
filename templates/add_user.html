@@ -10,6 +10,10 @@
 <body>
   <h1>Add User</h1>
 
+  {% if error %}
+    <p style="color: red;">{{ error }}</p>
+  {% endif %}
+
   <form action="{{ url_for('add_user') }}" method="post">
     <label for="name">User name:</label>
     <input type="text" id="name" name="name" required>
