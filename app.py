@@ -45,7 +45,7 @@ def get_movie_or_404(movie_id: int):
 def index():
 	users = data_manager.get_all_users()
 	#return render_template("index.html", users=users)
-	return "Welcome to Linas Movie App"
+	return render_template("index.html")
 
 @app.route("/users")
 def list_users():
@@ -214,6 +214,8 @@ def delete_movie(user_id, movie_id):
 		abort(500)
 
 	return redirect(url_for("user_movies", user_id=user_id))
+
+
 
 
 @app.errorhandler(404)
