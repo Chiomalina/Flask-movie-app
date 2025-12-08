@@ -68,3 +68,7 @@ class DataManagerInterface(ABC):
 		"""Delete a movie by id. Return True if deleted, False if not found."""
 		pass
 
+	@abstractmethod
+	def _review_to_dict(self, review: str) -> dict:
+		pass
+

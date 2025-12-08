@@ -2,7 +2,7 @@ from typing import List, Optional, Any
 import re
 
 from datamanager.data_manager_interface import DataManagerInterface
-from models import db, User, Movie
+from models import db, User, Movie, Review
 
 class SQLiteDataManager(DataManagerInterface):
 	"""
@@ -125,4 +125,53 @@ class SQLiteDataManager(DataManagerInterface):
 		self.session.delete(movie)
 		self.session.commit()
 		return True
+
+
+	def _review_to_dict(self, review: Review) -> dict:
+		return {
+			"id": review.id,
+			"user_id": review.movie.id,
+			"movie_id": review.movie_id,
+			"review_text": review.review_text,
+			"rating": review.rating,
+			"created_at": review.created_at,
+		}
+
+	def add_review(
+			self,
+			user_id: int,
+			movie_id: int,
+			review_text: str,
+			rating: float,
+	) -> dict:
+		"""Create and save a new review."""
+		review = Review(
+			user_id=user_id,
+			movie_id=movie_id,
+			review_text=review_text,
+			rating=rating,
+		)
+		db.session.add(review)
+		db.session.commit()
+		return self._review_to_dict(review)
+
+	def get_reviews_for_movie(self, movie_id: int) -> list[dict]:
+		"""Return all reviews for a given movie as dicts."""
+		reviews = Review.query.filter_by(movie_id=movie_id).all()
+		return [self._review_to_dict(r) for r in reviews]
+
+	def get_reviews_for_user(self, user_id: int) -> list[dict]:
+		"""Return all reviews written by a given user."""
+		reviews = Review.query.filter_by(user_id=user_id).all()
+		return [self._review_to_dict(r) for r in reviews]
+
+	def delete_review(self, review_id: int) -> bool:
+		review = Review.query.get(review_id)
+		if review is None:
+			return False
+		db.session.delete(review)
+		db.session.commit()
+		return True
+
+
 
