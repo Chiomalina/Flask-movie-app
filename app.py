@@ -247,6 +247,22 @@ def add_review(user_id, movie_id):
 	)
 
 
+@app.route("/movies/<int:movie_id>/reviews")
+def movie_reviews(movie_id):
+	movie = get_movie_or_404(movie_id)
+
+	if movie is None:
+		abort(404)
+
+	reviews = data_manager.get_reviews_for_movie(movie_id)
+	return render_template(
+		"movie_reviews.html",
+	                       movie=movie,
+	                       reviews=reviews,
+	                       )
+
+
+
 
 
 

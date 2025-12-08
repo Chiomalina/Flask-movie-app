@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Reviews – {{ movie['name'] }}{% endblock %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h1 class="h3 mb-3">Reviews for "{{ movie['name'] }}"</h1>
+
+    {% if reviews %}
+      <ul class="list-group">
+        {% for review in reviews %}
+          <li class="list-group-item">
+            <div class="d-flex justify-content-between">
+              <strong>Rating: {{ review['rating'] }}</strong>
+              <small class="text-muted">
+                {{ review['created_at'] }}
+              </small>
+            </div>
+            <p class="mb-0 mt-2">{{ review['review_text'] }}</p>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="text-muted">No reviews yet for this movie.</p>
+    {% endif %}
+  </div>
+{% endblock %}

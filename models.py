@@ -30,8 +30,12 @@ class Movie(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(200), nullable=False)
 
-    # Keep director as a simple string column
-    director = db.Column(db.String(200), nullable=False)
+    # Director relationships
+    director_id = db.Column(db.Integer, db.ForeignKey("directors.id"), nullable=True)
+    genre_id = db.Column(db.Integer, db.ForeignKey("genres.id"), nullable=True)
+
+    director_obj = db.relationship("Director", back_populates="movies")
+    genre_obj = db.relationship("Genre", back_populates="movies")
 
     year = db.Column(db.Integer, nullable=False)
     rating = db.Column(db.Float, nullable=False)
@@ -77,8 +81,11 @@ class Director(db.Model):
     name = db.Column(db.String(200), nullable=False)
     birth_date = db.Column(db.Date, nullable=True)
 
-    # No relationship to Movie yet — you can wire this up later
-    # when you’re ready to normalize directors into their own table.
+    movies = db.relationship(
+        "Movie",
+        back_populates="director_obj",
+        cascade="all, delete-orphan",
+    )
 
 
 class Genre(db.Model):
@@ -87,5 +94,8 @@ class Genre(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(200), nullable=False, unique=True)
 
-    # Same idea: no relationship to Movie yet. You can add it later
-    # when your app actually uses genres in the database.
+    movies = db.relationship(
+        "Movie",
+        back_populates="genre_obj",
+        cascade="all, delete-orphan",
+    )
