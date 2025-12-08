@@ -1,11 +1,14 @@
-/* Global theme */
+/* =========================
+   Global theme
+   ========================= */
 :root {
-  --bg-main: #050816;         /* very dark navy */
-  --bg-card: #111827;         /* dark bluish card */
-  --accent: #1d9bf0;          /* Disney+ style blue accent */
+  --bg-main: #050816;          /* very dark navy */
+  --bg-card: #111827;          /* dark bluish card */
+  --accent: #1d9bf0;           /* Disney+ style blue accent */
   --accent-soft: rgba(29, 155, 240, 0.4);
 }
 
+/* Base layout & typography */
 body {
   font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   background: radial-gradient(circle at top, #0b1120 0, var(--bg-main) 45%, #020617 100%);
@@ -13,23 +16,22 @@ body {
   min-height: 100vh;
 }
 
-/*  Text */
+/* Text colors */
 .text-secondary {
-  color: #cbd5f5 !important; /* soft bluish grey */
+  color: #cbd5f5 !important;  /* soft bluish grey for subtitles / helper text */
 }
 
-h1, h2, h3, span {
-    color: #fafafa !important;
-}
-
-
-/* Navbar */
+/* =========================
+   Navbar
+   ========================= */
 .navbar {
   background: radial-gradient(circle at top left, #0b1120, #020617 60%) !important;
   border-bottom: 1px solid rgba(148, 163, 184, 0.2);
 }
 
-/* Hero section */
+/* =========================
+   Hero section (home page)
+   ========================= */
 .hero {
   display: grid;
   gap: 2rem;
@@ -51,7 +53,7 @@ h1, h2, h3, span {
 
 .hero-subtitle {
   font-size: 0.98rem;
-  color: #fafafa;
+  color: #cbd5f5;
   max-width: 32rem;
 }
 
@@ -101,7 +103,9 @@ h1, h2, h3, span {
   color: #fafafa;
 }
 
-/* Buttons */
+/* =========================
+   Buttons
+   ========================= */
 .btn-primary {
   background: var(--accent);
   border-color: var(--accent);
@@ -125,8 +129,9 @@ h1, h2, h3, span {
   color: #000 !important;
 }
 
-
-/* Section headings */
+/* =========================
+   Section headings
+   ========================= */
 .section-title {
   font-size: 1.1rem;
   font-weight: 600;
@@ -135,63 +140,51 @@ h1, h2, h3, span {
 
 .section-subtitle {
   font-size: 0.85rem;
-  color: #fafafa;
+  color: #cbd5f5;
 }
 
-/* Form controls on dark background */
-.form-control, .form-select {
-  background: rgba(15, 23, 42, 0.95);
-  border-color: rgba(148, 163, 184, 0.7);
-  color: #fafafa;
+/* =========================
+   Forms
+   ========================= */
+.form-control,
+.form-select,
+textarea.form-control {
+  background: rgba(15, 23, 42, 0.95) !important;
+  border-color: rgba(148, 163, 184, 0.7) !important;
+  color: #fafafa !important;
 }
 
 .form-control::placeholder {
   color: rgba(148, 163, 184, 0.8);
 }
 
-/* Ensure textarea for reviews is readable on dark background */
-textarea,
-textarea.form-control {
-  background: rgba(15, 23, 42, 0.95);
-  color: #fafafa;
-}
-
-
-.form-control:focus, .form-select:focus {
-  background: rgba(15, 23, 42, 1);
-  border-color: #1d9bf0;
+.form-control:focus,
+.form-select:focus,
+textarea.form-control:focus {
+  background: rgba(15, 23, 42, 1) !important;
+  border-color: #1d9bf0 !important;
   box-shadow: 0 0 0 0.2rem rgba(29, 155, 240, 0.25);
+  color: #fafafa !important;
 }
 
-/* Helper text under inputs */
 .form-text {
   color: #cbd5f5 !important;
 }
 
-/* Force readable text in all form fields on dark background */
-input.form-control,
-textarea.form-control {
-  color: #fafafa !important;          /* text you type */
-  background: rgba(15, 23, 42, 0.95) !important;
-}
-
-/* Keep focus state bright and readable */
-input.form-control:focus,
-textarea.form-control:focus {
-  color: #fafafa !important;
-  background: rgba(15, 23, 42, 1) !important;
-}
-
-
-
-/* Cards (users and movies) */
+/* =========================
+   Cards (users and movies)
+   ========================= */
 .user-card,
 .movie-card {
   background: var(--bg-card);
   border-radius: 0.9rem;
   border: 1px solid rgba(148, 163, 184, 0.35);
   box-shadow: 0 25px 50px rgba(15, 23, 42, 0.8);
-  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    border-color 0.18s ease,
+    background 0.18s ease;
 }
 
 .user-card:hover,
@@ -212,7 +205,9 @@ textarea.form-control:focus {
   font-weight: 600;
 }
 
-/* Horizontal scroll row (for future movie carousels) */
+/* =========================
+   Horizontal scroll row (movie carousels)
+   ========================= */
 .scroll-row {
   display: flex;
   gap: 1rem;
