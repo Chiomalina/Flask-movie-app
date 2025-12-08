@@ -24,16 +24,44 @@ class User(db.Model):
     )
 
 
+class Director(db.Model):
+    __tablename__ = "directors"
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(200), nullable=False)
+    birth_date = db.Column(db.Date, nullable=True)
+
+    movies = db.relationship(
+        "Movie",
+        back_populates="director_obj",
+        cascade="all, delete-orphan",
+    )
+
+
+class Genre(db.Model):
+    __tablename__ = "genres"
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(200), nullable=False, unique=True)
+
+    movies = db.relationship(
+        "Movie",
+        back_populates="genre_obj",
+        cascade="all, delete-orphan",
+    )
+
+
 class Movie(db.Model):
     __tablename__ = "movies"
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(200), nullable=False)
 
-    # Director relationships
+    # Director / Genre FKs
     director_id = db.Column(db.Integer, db.ForeignKey("directors.id"), nullable=True)
     genre_id = db.Column(db.Integer, db.ForeignKey("genres.id"), nullable=True)
 
+    # Relationship objects
     director_obj = db.relationship("Director", back_populates="movies")
     genre_obj = db.relationship("Genre", back_populates="movies")
 
@@ -72,30 +100,3 @@ class Review(db.Model):
 
     # Many reviews → one movie
     movie = db.relationship("Movie", back_populates="reviews")
-
-
-class Director(db.Model):
-    __tablename__ = "directors"
-
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(200), nullable=False)
-    birth_date = db.Column(db.Date, nullable=True)
-
-    movies = db.relationship(
-        "Movie",
-        back_populates="director_obj",
-        cascade="all, delete-orphan",
-    )
-
-
-class Genre(db.Model):
-    __tablename__ = "genres"
-
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(200), nullable=False, unique=True)
-
-    movies = db.relationship(
-        "Movie",
-        back_populates="genre_obj",
-        cascade="all, delete-orphan",
-    )

@@ -6,15 +6,10 @@
   --accent-soft: rgba(29, 155, 240, 0.4);
 }
 
-/* Global text color for regular content*/
-body {
-    color: #fafafa
-}
-
 body {
   font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   background: radial-gradient(circle at top, #0b1120 0, var(--bg-main) 45%, #020617 100%);
-  color: #f9fafb;
+  color: #fafafa;
   min-height: 100vh;
 }
 
@@ -154,6 +149,12 @@ h1, h2, h3, span {
   color: rgba(148, 163, 184, 0.8);
 }
 
+/* Ensure textarea for reviews is readable on dark background */
+textarea,
+textarea.form-control {
+  background: rgba(15, 23, 42, 0.95);
+  color: #fafafa;
+}
 
 
 .form-control:focus, .form-select:focus {
@@ -166,6 +167,21 @@ h1, h2, h3, span {
 .form-text {
   color: #cbd5f5 !important;
 }
+
+/* Force readable text in all form fields on dark background */
+input.form-control,
+textarea.form-control {
+  color: #fafafa !important;          /* text you type */
+  background: rgba(15, 23, 42, 0.95) !important;
+}
+
+/* Keep focus state bright and readable */
+input.form-control:focus,
+textarea.form-control:focus {
+  color: #fafafa !important;
+  background: rgba(15, 23, 42, 1) !important;
+}
+
 
 
 /* Cards (users and movies) */
