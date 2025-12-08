@@ -216,6 +216,40 @@ def delete_movie(user_id, movie_id):
 	return redirect(url_for("user_movies", user_id=user_id))
 
 
+@app.route("/users(<int:user_id>/movies/<int:movie_id>/add_review", method=["GET", "POST"])
+def add_review(user_id, movie_id):
+	# Ensure user and movie exist
+	user = get_user_or_404(user_id)
+	movie = get_movie_or_404(movie_id)
+
+	if user is None or movie is None:
+		abort(404)
+
+	if request.method == "POST":
+		review_text = request.form["review_text"]
+		rating = float(request.form["rating"])
+
+		data_manager.add_review(
+			user_id=user_id,
+			movie_id=movie_id,
+			review_text=review_text,
+			rating=rating,
+		)
+
+		# Back to the user's movie list
+		return redirect(url_for("user_movies", user_id=user_id))
+
+	# GET Requesst shows form
+	return render_template(
+		"add_review.html",
+		user=user,
+		movie=movie,
+	)
+
+
+
+
+
 
 
 @app.errorhandler(404)

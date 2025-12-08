@@ -49,6 +49,14 @@
                   <p class="mb-1 text-secondary small">
                     {{ movie['year'] }}
                   </p>
+                  <p class="mb-1 text-secondary small">
+                    <a
+                      href="{{ url_for('add_review', user_id=user['id'], movie_id=movie['id']) }}"
+                      class="btn btn-sm btn-outline-secondary"
+                    >
+                      Add review
+                    </a>
+                  </p>
                 </div>
 
                 <!-- Rating badge -->
