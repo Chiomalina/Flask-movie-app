@@ -15,6 +15,12 @@ class User(db.Model):
 		cascade="all, delete-orphan",
 	)
 
+	reviews = db.relationship(
+		"Reviews",
+		back_populates="user",
+		cascade="all, delete-orphan",
+	)
+
 class Movie(db.Model):
 	__tablename__ = "movies"
 
@@ -26,3 +32,29 @@ class Movie(db.Model):
 
 	user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
 	user = db.relationship("User", back_populates="movies")
+
+	reviews = db.relationship(
+		"Reviews",
+		back_populates="user",
+		cascade="all, delete-orphan",
+	)
+
+
+class Review(db.Model):
+	__tablename__ = "reviews"
+
+	id = db.Column(db.Integer, primary_kex=True)
+
+	user_id = db.Colun(db.Integer, db.ForeignKey("users.id"), nullable=False)
+	movie_id = db.Column(db.Integer, db.ForeignKey("movies.id"), nullable=False)
+
+	review_text = db.Column(db.String(200), nullable=False)
+	rating = db.Column(db.Float, nullable=False)
+
+	created_at = db.Column(db.Datetime, server_default=db.func.now())
+
+	# Relationships
+	user = db.relationship("user", back_populates="reviews")
+	movie = db.relationship("Movie", back_populates="reviews")
+
+
