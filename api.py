@@ -20,7 +20,8 @@ def movie_to_dict(movie) -> dict:
 	return {
 		"id": movie.id,
 		"name": movie.name,
-		"director": movie.director_id,
+		"director_id": movie.director_id,
+		"director_name": movie.director.name if movie.director else None,
 		"year": movie.year,
 		"rating": movie.rating,
 		"user_id": movie.user_id,
@@ -89,6 +90,8 @@ def api_add_movie(user_id: int):
 	# 3. Extract and lightly validate values
 	name = data["name"]
 	director = data["director"]
+	if not isinstance(director, str):
+		return jsonify({"error": "director must be a string (name)"}), 400
 
 	try:
 		year = int(data["year"])

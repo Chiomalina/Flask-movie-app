@@ -33,7 +33,7 @@ class Director(db.Model):
 
     movies = db.relationship(
         "Movie",
-        back_populates="director_obj",
+        back_populates="director",
         cascade="all, delete-orphan",
     )
 
@@ -59,6 +59,7 @@ class Movie(db.Model):
 
     # Director / Genre FKs
     director_id = db.Column(db.Integer, db.ForeignKey("directors.id"), nullable=True)
+    director = db.relationship("Director", back_populates="movies")
     genre_id = db.Column(db.Integer, db.ForeignKey("genres.id"), nullable=True)
 
     # Relationship objects
