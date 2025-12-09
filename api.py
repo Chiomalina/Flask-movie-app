@@ -20,7 +20,7 @@ def movie_to_dict(movie) -> dict:
 	return {
 		"id": movie.id,
 		"name": movie.name,
-		"director": movie.director,
+		"director": movie.director_id,
 		"year": movie.year,
 		"rating": movie.rating,
 		"user_id": movie.user_id,
@@ -39,3 +39,18 @@ def api_get_users():
 def api_get_user_movies(user_id: int):
 	"""Return all movies for a given user as JSON."""
 	# 1. Check that the user exists
+	user = data_manager.get_user(user_id)
+	if user is None:
+		abort(404, description=f"User with id {user_id} not found")
+
+	# 2. Get the movies for the user
+	movies = data_manager.get_user_movies(user_id)
+
+	# 3. Convert to plain dicts
+	movie_data = [movie_to_dict(movie) for movie in movies]
+
+	return jsonify(movie_data), 200
+
+
+@api.route("/users/<int:user_id>/movies", methods=["POST"])
+def api_add_movie(user_id: int):
