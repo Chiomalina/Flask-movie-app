@@ -85,22 +85,53 @@ class SQLiteDataManager(DataManagerInterface):
         director: str,
         year: int,
         rating: float,
+        genre: str | None = None,
     ) -> Movie:
         """
-        Create and persist a new movie for the given user.
-        `director` is treated as the director's name and mapped to a Director entity.
-        """
-        director_obj = self._get_or_create_director(director)
+        Create a new movie for a user.
 
+        :param user_id: ID of the user who owns the movie
+        :param name: Movie title
+        :param director: Director name (string)
+        :param year: Release year
+        :param rating: Rating as float
+        :param genre: Optional genre name
+        :return: The created Movie SQLAlchemy object
+        """
+        # 1. Ensure user exists (optional but defensive)
+        user = User.query.get(user_id)
+        if user is None:
+            raise ValueError(f"User with id {user_id} does not exist")
+
+        # 2. Find or create Director by name
+        director_obj = Director.query.filter_by(name=director).first()
+        if director_obj is None:
+            director_obj = Director(name=director)
+            db.session.add(director_obj)
+            db.session.flush()  # so director_obj.id is available
+
+        # 3. Find or create Genre by name (if provided)
+        genre_obj = None
+        if genre:
+            genre_obj = Genre.query.filter_by(name=genre).first()
+            if genre_obj is None:
+                genre_obj = Genre(name=genre)
+                db.session.add(genre_obj)
+                db.session.flush()
+
+        # 4. Create Movie using relationships `director` and `genre`
         movie = Movie(
-            user_id=user_id,
             name=name,
             year=year,
             rating=rating,
-            director_obj=director_obj,
+            user_id=user_id,
+            director=director_obj,
+            genre=genre_obj,
         )
-        self.session.add(movie)
-        self.session.commit()
+
+        db.session.add(movie)
+        db.session.commit()
+
         return movie
 
     def update_movie(

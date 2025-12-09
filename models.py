@@ -46,7 +46,7 @@ class Genre(db.Model):
 
     movies = db.relationship(
         "Movie",
-        back_populates="genre_obj",
+        back_populates="genre",
         cascade="all, delete-orphan",
     )
 
@@ -59,12 +59,10 @@ class Movie(db.Model):
 
     # Director / Genre FKs
     director_id = db.Column(db.Integer, db.ForeignKey("directors.id"), nullable=True)
-    director = db.relationship("Director", back_populates="movies")
     genre_id = db.Column(db.Integer, db.ForeignKey("genres.id"), nullable=True)
 
-    # Relationship objects
-    director_obj = db.relationship("Director", back_populates="movies")
-    genre_obj = db.relationship("Genre", back_populates="movies")
+    director = db.relationship("Director", back_populates="movies")
+    genre = db.relationship("Genre", back_populates="movies")
 
     year = db.Column(db.Integer, nullable=False)
     rating = db.Column(db.Float, nullable=False)

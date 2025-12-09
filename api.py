@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, request, abort
 from datamanager.sqlite_data_manager import SQLiteDataManager
+from models import db, User, Movie, Director, Genre
 
 data_manager = SQLiteDataManager("moviweb.db")
 
@@ -22,6 +23,8 @@ def movie_to_dict(movie) -> dict:
 		"name": movie.name,
 		"director_id": movie.director_id,
 		"director_name": movie.director.name if movie.director else None,
+		"genre_id": movie.genre_id,
+		"genre_name": movie.genre.name if movie.genre else None,
 		"year": movie.year,
 		"rating": movie.rating,
 		"user_id": movie.user_id,
@@ -61,6 +64,7 @@ def api_add_movie(user_id: int):
 	{
 		"name": "Inception",
 		"director": "Christopher Nolan",
+		"genre": "Sci-Fi",
 		"year": 2010,
 		"rating": 9.0
 	}
@@ -89,8 +93,10 @@ def api_add_movie(user_id: int):
 
 	# 3. Extract and lightly validate values
 	name = data["name"]
-	director = data["director"]
-	if not isinstance(director, str):
+	director_name = data["director"]
+	genre_name = data.get("genre")
+
+	if not isinstance(director_name, str):
 		return jsonify({"error": "director must be a string (name)"}), 400
 
 	try:
@@ -98,24 +104,40 @@ def api_add_movie(user_id: int):
 		rating = float(data["rating"])
 	except (ValueError, TypeError):
 		return (
-			jsonify({"error": "Year must be an integer and rating must be a number"}), 400,
+			jsonify({"error": "Year must be an integer and rating must be a number"}),
+			400,
 		)
 
-	# 4. Create the movie via DataManager
-	created_movie = data_manager.add_movie(
-		user_id=user_id,
+	# 4. Find or create Director
+	director = Director.query.filter_by(name=director_name).first()
+	if director is None:
+		director = Director(name=director_name)
+		db.session.add(director)
+		db.session.flush()  # so director.id is available
+
+	# 5. (Optional) Find or create Genre
+	genre = None
+	if genre_name:
+		genre = Genre.query.filter_by(name=genre_name).first()
+		if genre is None:
+			genre = Genre(name=genre_name)
+			db.session.add(genre)
+			db.session.flush()
+
+	# 6. Create the Movie object
+	movie = Movie(
 		name=name,
-		director=director,
 		year=year,
 		rating=rating,
+		user_id=user_id,
+		director=director,
+		genre=genre,
 	)
 
-	# 5. Convert SQLAlchemy returned model to dictionary
-	movie_dict = (
-		created_movie
-		if isinstance(created_movie, dict)
-		else movie_to_dict(created_movie)
-	)
+	db.session.add(movie)
+	db.session.commit()
+
+	# 7. Convert SQLAlchemy model to dict
+	movie_dict = movie_to_dict(movie)
 
 	return jsonify(movie_dict), 201
-
