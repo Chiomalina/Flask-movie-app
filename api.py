@@ -54,3 +54,65 @@ def api_get_user_movies(user_id: int):
 
 @api.route("/users/<int:user_id>/movies", methods=["POST"])
 def api_add_movie(user_id: int):
+	"""
+	Add a new favourite movie for a user.
+	Expected JSON body:
+	{
+		"name": "Inception",
+		"director": "Christopher Nolan",
+		"year": 2010,
+		"rating": 9.0
+	}
+	"""
+	# 1. Ensure the user exists
+	user = data_manager.get_user(user_id)
+	if user is None:
+		abort(404, description=f"User with id {user_id} not found")
+
+	# 2. Read JSON body
+	data = request.get_json() or {}
+
+	required_fields = ["name", "director", "year", "rating"]
+	missing = [field for field in required_fields if field not in data]
+
+	if missing:
+		return (
+			jsonify(
+				{
+					"error": "Missing required fields",
+					"missing": missing,
+				}
+			),
+			400,
+		)
+
+	# 3. Extract and lightly validate values
+	name = data["name"]
+	director = data["director"]
+
+	try:
+		year = int(data["year"])
+		rating = float(data["rating"])
+	except (ValueError, TypeError):
+		return (
+			jsonify({"error": "Year must be an integer and rating must be a number"}), 400,
+		)
+
+	# 4. Create the movie via DataManager
+	created_movie = data_manager.add_movie(
+		user_id=user_id,
+		name=name,
+		director=director,
+		year=year,
+		rating=rating,
+	)
+
+	# 5. Convert SQLAlchemy returned model to dictionary
+	movie_dict = (
+		created_movie
+		if isinstance(created_movie, dict)
+		else movie_to_dict(created_movie)
+	)
+
+	return jsonify(movie_dict), 201
+
