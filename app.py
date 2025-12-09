@@ -5,6 +5,7 @@ from flask import Flask, render_template, request, redirect, url_for, abort
 from sqlalchemy.exc import SQLAlchemyError
 
 from models import db
+from api import api
 from datamanager.sqlite_data_manager import SQLiteDataManager
 from dotenv import load_dotenv
 import os
@@ -19,8 +20,10 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db.init_app(app)
 
+# Register blueprint with prefix
+app.register_blueprint(api, url_prefix="/api")
+
 with app.app_context():
-	db.drop_all()
 	db.create_all()
 
 
