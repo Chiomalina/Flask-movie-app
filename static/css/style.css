@@ -234,3 +234,8 @@ textarea.form-control:focus {
   max-width: 180px;
   scroll-snap-align: start;
 }
+
+.h5, .h4, .h6, span, label {
+    color: #fafafa
+}
+
