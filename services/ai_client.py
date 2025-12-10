@@ -37,9 +37,9 @@ def get_movie_recommendations(favourite_title: str, count: int = 5) -> List[Movi
 	:param count: How many recommendations to return
 	"""
 	prompt = (
-		f"The user likes the movie '{favourite_title}."
+		f"The user likes the movie '{favourite_title}'."
 		f"Suggest {count} other movies they might enjoy."
-		f"Return them as a numbered list in this exact formation:\n"
+		f"Return them as a numbered list in this exact format:\n"
 		f"1. Movie Title - short reason\n"
 		f"2. Movie Title - short reason\n"
 		f"..."
@@ -92,3 +92,48 @@ def get_movie_recommendations(favourite_title: str, count: int = 5) -> List[Movi
 			recommendations.append(MovieRecommendation(title=line, reason=""))
 
 	return recommendations
+
+
+def generate_movie_review(title: str) -> str:
+	response = client.chat.completions.create(
+		model="gpt-4o-mini",
+		messages=[
+			{
+				"role": "system",
+				"content": (
+					"You are a movie critic."
+					"Write short, spoiler-free reviews (max 120 words)."
+				),
+			},
+			{
+				"role": "user",
+				"content": f"Write a short review of the movie '{title}'.",
+			},
+		],
+		temperature=0.7,
+	)
+	return response.choices[0].message.content or ""
+
+
+def generate_movie_trivia(title: str) -> str:
+	response = client.chat.completions.create(
+		model="gpt-4o-mini",
+		messages=[
+			{
+				"role": "system",
+				"content": (
+					"You generate fun, family-friendly movie trivia."
+					"Always correct yourself if the user asks about unrealistic facts."
+				),
+			},
+			{
+				"role": "user",
+				"content": (
+					f"Give me  3 short trivia facts about the movie '{title}'."
+					f"Use a numbered list"
+				),
+			},
+		],
+		temperature=0.9
+	)
+	return response.choices[0].message.content or ""
