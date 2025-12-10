@@ -7,6 +7,8 @@ from sqlalchemy.exc import SQLAlchemyError
 from models import db
 from api import api
 from datamanager.sqlite_data_manager import SQLiteDataManager
+from services.ai_client import get_movie_recommendations
+
 from dotenv import load_dotenv
 import os
 
@@ -263,6 +265,12 @@ def movie_reviews(movie_id):
 
 
 
+@app.route("/ai/recommendations", methods=["GET", "POST"])
+def ai_recommendations():
+	"""
+	Show a form to enter a favourite movie and, on Post,
+	call ChatGPT to get recommendations.
+	"""
 
 
 
