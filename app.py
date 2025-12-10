@@ -271,7 +271,28 @@ def ai_recommendations():
 	Show a form to enter a favourite movie and, on Post,
 	call ChatGPT to get recommendations.
 	"""
+	recommendations = None
+	favourite_title = None
+	error_message = None
 
+	if request.method == "POST":
+		favourite_title = (request.form.get("favourite_movie" or "")).strip()
+
+		if not favourite_title:
+			error_message = "Please enter a movie title."
+		else:
+			try:
+				recommendations = get_movie_recommendations(favourite_title)
+			except Exception as exc:
+				print(f"OpenAI error: {exc}")
+				error_message = "Sorry, the AI service is currently unavailable."
+
+	return render_template(
+		"ai_recommendations.html",
+		recommendations=recommendations,
+		favourite_title=favourite_title,
+		error_message=error_message,
+	)
 
 
 

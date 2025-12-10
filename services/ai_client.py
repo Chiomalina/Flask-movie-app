@@ -37,7 +37,7 @@ def get_movie_recommendations(favourite_title: str, count: int = 5) -> List[Movi
 	:param count: How many recommendations to return
 	"""
 	prompt = (
-		f"The use likes the movie '{favourite_title}."
+		f"The user likes the movie '{favourite_title}."
 		f"Suggest {count} other movies they might enjoy."
 		f"Return them as a numbered list in this exact formation:\n"
 		f"1. Movie Title - short reason\n"
