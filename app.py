@@ -13,6 +13,7 @@ import os
 load_dotenv()
 
 OMDB_API_KEY = os.getenv("OMDb_API_KEY")
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///moviweb.db"
