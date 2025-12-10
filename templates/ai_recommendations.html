@@ -12,34 +12,39 @@
     <div class="container py-5">
       <h1 class="mb-4">AI Movie Recommendations</h1>
 
+      <!-- Form -->
       <form method="post" class="mb-4">
         <div class="mb-3">
-          <label for="favorite_movie" class="form-label">
+          <label for="favourite_movie" class="form-label">
             What movie do you like?
           </label>
+
           <input
             type="text"
             class="form-control"
-            id="favorite_movie"
-            name="favorite_movie"
+            id="favourite_movie"
+            name="favourite_movie"
             placeholder="e.g. Inception"
-            value="{{ favorite_title or '' }}"
+            value="{{ favourite_title or '' }}"
             required
           >
         </div>
+
         <button type="submit" class="btn btn-primary">
           Get AI Recommendations
         </button>
       </form>
 
+      <!-- Error Message -->
       {% if error_message %}
         <div class="alert alert-danger">
           {{ error_message }}
         </div>
       {% endif %}
 
+      <!-- Recommendations -->
       {% if recommendations %}
-        <h2 class="h4 mt-4 mb-3">Because you like "{{ favorite_title }}":</h2>
+        <h2 class="h4 mt-4 mb-3">Because you like "{{ favourite_title }}":</h2>
         <ul class="list-group">
           {% for rec in recommendations %}
             <li class="list-group-item bg-secondary text-light">
@@ -51,7 +56,8 @@
             </li>
           {% endfor %}
         </ul>
-      {% elif favorite_title and not error_message %}
+
+      {% elif favourite_title and not error_message %}
         <p>No recommendations found.</p>
       {% endif %}
     </div>

@@ -276,10 +276,17 @@ def ai_recommendations():
 	error_message = None
 
 	if request.method == "POST":
-		favourite_title = (request.form.get("favourite_movie" or "")).strip()
+		favourite_title = request.form.get("favourite_movie", "").strip()
 
 		if not favourite_title:
-			error_message = "Please enter a movie title."
+			# Show an error or re-render the form
+			error_message = "Please enter a favourite movie title."
+			return render_template(
+				"ai_recommendations.html",
+				recommendations=recommendations,
+				favourite_title=favourite_title,
+				error_message=error_message,
+			)
 		else:
 			try:
 				recommendations = get_movie_recommendations(favourite_title)
