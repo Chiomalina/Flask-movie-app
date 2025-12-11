@@ -66,6 +66,7 @@ def get_movie_recommendations(favourite_title: str, count: int = 5) -> List[Movi
 	# 1. Interstellar - ...
 	# 2. The Prestige - ...
 	# We'll parse it into a list of MovieRecommendation.
+	print("RAW OPENAI RESPONSE:\n", content)
 	recommendations: List[MovieRecommendation] = []
 
 	for line in content.splitlines():
@@ -112,7 +113,9 @@ def generate_movie_review(title: str) -> str:
 		],
 		temperature=0.7,
 	)
-	return response.choices[0].message.content or ""
+	content = response.choices[0].message.content or ""
+	print("AI REVIEW RAW CONTENT:\n", content)
+	return content
 
 
 def generate_movie_trivia(title: str) -> str:

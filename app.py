@@ -7,7 +7,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from models import db
 from api import api
 from datamanager.sqlite_data_manager import SQLiteDataManager
-from services.ai_client import get_movie_recommendations
+from services.ai_client import get_movie_recommendations, generate_movie_review, generate_movie_trivia
 
 from dotenv import load_dotenv
 import os
@@ -276,6 +276,8 @@ def ai_recommendations():
 
 	if request.method == "POST":
 		favourite_title = request.form.get("favourite_movie", "").strip()
+		if not error_message:
+			print("RECOMMENDATIONS TO TEMPLATE:", recommendations)
 
 		if not favourite_title:
 			# Show an error or re-render the form
@@ -301,6 +303,47 @@ def ai_recommendations():
 	)
 
 
+@app.route("/movies/<int:movie_id>/ai_review")
+def movie_ai_review(movie_id: int):
+	movie = get_movie_or_404(movie_id)
+
+	ai_review = None
+	error_message = None
+
+	try:
+		title = movie.name
+		ai_review = generate_movie_review(title)
+	except Exception as exc:
+		app.logger.error(f"OpenAI error while generating review: {exc}")
+		error_message = "Sorry, the AI review service is currently unavailable."
+
+	return render_template(
+		"ai_review.html",
+		movie=movie,
+		ai_review=ai_review,
+		error_message=error_message,
+	)
+
+
+@app.route("/movies/<int:movie_id>/ai_trivia")
+def movie_ai_trivia(movie_id: int):
+	movie = get_movie_or_404(movie_id)
+
+	ai_trivia = None
+	error_message = None
+
+	try:
+		title = movie.name
+		ai_trivia = generate_movie_trivia(title)
+	except Exception as exc:
+		app.logger.error(f"OpenAI error while generating trivia: {exc}")
+		error_message = "Sorry, the AI trivia service is currently unavailable."
+
+	return render_template(
+		"ai_trivia.html",
+		ai_trivia=ai_trivia,
+		error_message=error_message,
+	)
 
 
 @app.errorhandler(404)
