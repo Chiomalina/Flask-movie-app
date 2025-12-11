@@ -245,3 +245,7 @@ textarea.form-control:focus {
   width: 100%
 }
 
+.text-faded-light {
+  color: #fafafa !important;
+  opacity: 0.85;
+}
