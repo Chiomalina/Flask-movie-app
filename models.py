@@ -67,6 +67,8 @@ class Movie(db.Model):
     year = db.Column(db.Integer, nullable=False)
     rating = db.Column(db.Float, nullable=False)
 
+    poster_url = db.Column(db.String(500), nullable=True)
+
     # Foreign key to users.id
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
 

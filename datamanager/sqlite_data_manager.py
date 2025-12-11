@@ -85,6 +85,7 @@ class SQLiteDataManager(DataManagerInterface):
         director: str,
         year: int,
         rating: float,
+        poster_url: str | None = None,
         genre: str | None = None,
     ) -> Movie:
         """
@@ -127,6 +128,7 @@ class SQLiteDataManager(DataManagerInterface):
             user_id=user_id,
             director=director_obj,
             genre=genre_obj,
+            poster_url=poster_url,
         )
 
         db.session.add(movie)

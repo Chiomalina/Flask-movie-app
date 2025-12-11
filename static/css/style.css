@@ -239,3 +239,9 @@ textarea.form-control:focus {
     color: #fafafa
 }
 
+.movie-poster {
+  object-fit: cover;
+  max-height: 260px;
+  width: 100%
+}
+

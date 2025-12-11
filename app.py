@@ -133,6 +133,9 @@ def add_movie(user_id):
 		movie_name = data.get("Title", title)
 		raw_year = data.get("Year", "")
 		movie_year = data_manager.parse_year(raw_year)
+		poster_url = data.get("Poster")
+		if not poster_url or poster_url == "N/A":
+			poster_url = None
 
 		imdb_rating_str = data.get("imdbRating")
 		movie_rating = (
@@ -150,6 +153,7 @@ def add_movie(user_id):
 				director=director,
 				year=movie_year,
 				rating=movie_rating,
+				poster_url=poster_url,
 			)
 		except SQLAlchemyError as e:
 			app.logger.error(f"DB error while adding movie for user {user_id}: {e}")
