@@ -276,21 +276,13 @@ def ai_recommendations():
 
 	if request.method == "POST":
 		favourite_title = request.form.get("favourite_movie", "").strip()
-		if not error_message:
-			print("RECOMMENDATIONS TO TEMPLATE:", recommendations)
 
 		if not favourite_title:
-			# Show an error or re-render the form
 			error_message = "Please enter a favourite movie title."
-			return render_template(
-				"ai_recommendations.html",
-				recommendations=recommendations,
-				favourite_title=favourite_title,
-				error_message=error_message,
-			)
 		else:
 			try:
 				recommendations = get_movie_recommendations(favourite_title)
+				print("RECOMMENDATIONS TO TEMPLATE:", recommendations)
 			except Exception as exc:
 				print(f"OpenAI error: {exc}")
 				error_message = "Sorry, the AI service is currently unavailable."
@@ -341,6 +333,7 @@ def movie_ai_trivia(movie_id: int):
 
 	return render_template(
 		"ai_trivia.html",
+		movie=movie,
 		ai_trivia=ai_trivia,
 		error_message=error_message,
 	)

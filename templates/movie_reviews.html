@@ -23,5 +23,11 @@
     {% else %}
       <p class="text-muted">No reviews yet for this movie.</p>
     {% endif %}
+
+    <a
+      href="{{ url_for('movie_ai_trivia', movie_id=movie.id) }}"
+      class="btn btn-warning btn-sm mt-3 px-3 rounded-pill fw-semibold shadow-sm">
+      AI Trivia
+    </a>
   </div>
 {% endblock %}
