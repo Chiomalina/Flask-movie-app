@@ -151,10 +151,10 @@ Flask_Movie_App/
 ```
 
 ---
-### Screenshots
-- **User Dashboard**
-- Movie Collection
-- Movie Details & AI Trivia
+### 📸 Screenshots
+![Dashboard](/static/images/homepage.png)
+![Movie Collection](/static/images/movie_collection.png)
+![Movie Collection](/static/images/user_dashboard.png)
 
 ---
 
