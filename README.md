@@ -148,4 +148,45 @@ Flask_Movie_App/
 │
 └── instance/
     └── movieweb.db         # SQLite database
-# Flask-movie-apppp.git
+```
+
+---
+### Screenshots
+- **User Dashboard**
+- Movie Collection
+- Movie Details & AI Trivia
+
+---
+
+### Demo Video
+- **Full Walkthrough & Feature Demo**
+
+
+---
+
+### 🚀 Deployment Notes
+- **Hosted on PythonAnywhere**
+- WSGI configured for Flask
+- Secure .env usage
+- Production-ready settings
+
+---
+
+### 💡 What This Project Demonstrates
+- **✔️ Real-world Flask architecture**
+- ✔️ Database modeling & ORM mastery
+- ✔️ API integration (external + AI)
+- ✔️ Clean, readable, maintainable code
+- ✔️ Full CRUD lifecycle
+- ✔️ Deployment & production thinking
+
+---
+
+### 👤 Author
+Lina Chioma Anaso
+Software Engineering Student | Full-Stack Developer
+
+🔗 GitHub: (add link)
+🔗 LinkedIn: (add link)
+
+
