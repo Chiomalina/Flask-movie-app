@@ -192,7 +192,6 @@ Flask_Movie_App/
 Lina Chioma Anaso
 Software Engineering Student | Full-Stack Developer
 
-🔗 GitHub: (add link)
-🔗 LinkedIn: (add link)
-
+- **GitHub: https://github.com/Chiomalina**
+- **LinkedIn: https://linkedin.com/in/lina-chioma-anaso**
 
