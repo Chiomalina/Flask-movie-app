@@ -152,9 +152,15 @@ Flask_Movie_App/
 
 ---
 ### 📸 Screenshots
+
+### Dashboard
 ![Dashboard](/static/images/homepage.png)
+
+### Movie Collection
 ![Movie Collection](/static/images/movie_collection.png)
-![Movie Collection](/static/images/user_dashboard.png)
+
+### Users
+![User](/static/images/user_dashboard.png)
 
 ---
 
