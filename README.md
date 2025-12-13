@@ -1,6 +1,6 @@
 🎬 MovieWeb — AI-Powered Flask Movie Collection App
 
-A **production-ready Flask web application** that allows users to manage personal movie collections, enriched with **AI-generated trivia and reviews**, external movie data via **OMDb**, and a clean, modern UI.  
+A **production-ready Flask web application** that allows users to manage personal movie collections, enriched with **AI-generated trivia, recommendations and reviews**, external movie data via **OMDb**, and a clean, modern UI.  
 Built with strong software engineering principles: **OOP**, **database abstraction**, **RESTful design**, and **deployment-ready architecture**.
 
 🚀 **Live Demo:**  
@@ -10,7 +10,7 @@ Built with strong software engineering principles: **OOP**, **database abstracti
 
 ## 📌 Project Overview
 
-**MovieWeb** is a full-stack Python web application that enables users to:
+**Flask_Movie_App** is a full-stack Python web application that enables users to:
 
 - Create and manage users
 - Add, update, and delete movies
@@ -32,10 +32,10 @@ This project was built with **maintainability, extensibility, and real-world dep
 - Cascade delete (users → movies → reviews)
 
 ### 🎞️ Movie Management (CRUD)
-- Add movies manually or via OMDb
+- Add movies manually via OMDb API
 - Update movie details
 - Delete movies safely
-- Ratings, years, directors, posters supported
+- Edit ratings, years, directors, posters supported
 
 ### 🗄️ Database & ORM
 - SQLite database
@@ -85,7 +85,7 @@ This project was built with **maintainability, extensibility, and real-world dep
 
 ### APIs & AI
 - **OMDb API**
-- **OpenAI API** (AI trivia & reviews)
+- **OpenAI API** (AI trivia, recommendations & reviews)
 
 ### Frontend
 - HTML5
@@ -166,7 +166,6 @@ Flask_Movie_App/
 
 ### 🎥 Demo Video
 - **A short walkthrough showcasing the core features, UI, and backend capabilities of the Flask Movie APP.**
-[!App Demo]
 - Watch on YouTube: https://youtu.be/D5JNwwitSgM
 
 
