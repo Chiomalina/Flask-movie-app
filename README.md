@@ -164,8 +164,10 @@ Flask_Movie_App/
 
 ---
 
-### Demo Video
-- **Full Walkthrough & Feature Demo**
+### 🎥 Demo Video
+- **A short walkthrough showcasing the core features, UI, and backend capabilities of the Flask Movie APP.**
+[!App Demo]
+- Watch on YouTube: https://youtu.be/D5JNwwitSgM
 
 
 ---
@@ -188,10 +190,42 @@ Flask_Movie_App/
 
 ---
 
+### 🚀 Getting Started (Local Setup)
+```
+# Clone the repository
+git clone https://github.com/your-username/flask-movie-app.git
+cd flask-movie-app
+
+
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate # macOS/Linux
+venv\\Scripts\\activate # Windows
+
+
+# Install dependencies
+pip install -r requirements.txt
+
+
+# Create .env file
+OMDB_API_KEY=your_api_key_here
+
+
+# Run the app
+flask run
+```
+
+### 🧪 Testing
+```
+pytest
+```
+Includes route tests and data validation to ensure reliability.
+
 ### 👤 Author
 Lina Chioma Anaso
 Software Engineering Student | Full-Stack Developer
 
+📍 **Germany**
 - **GitHub: https://github.com/Chiomalina**
 - **LinkedIn: https://linkedin.com/in/lina-chioma-anaso**
 
